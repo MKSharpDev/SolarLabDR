@@ -1,0 +1,6 @@
+@SolarLabDR.Api_HostAddress = http://localhost:5119
+
+GET {{SolarLabDR.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
