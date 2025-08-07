@@ -14,7 +14,9 @@ namespace SolarLabDR.MapProfile
     {
         public ImageProfile()
         {
-            CreateMap<Image, ImageDto>(MemberList.None).ReverseMap(); ;
+            CreateMap<Image, ImageDto>(MemberList.None).ReverseMap();
+            CreateMap<ImageRequest, ImageDto>(MemberList.None);
+            CreateMap<ImageDto, ImageResponse>(MemberList.None);
         }
     }
 }

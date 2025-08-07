@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SolarLabDR.Contracts.Person
 {
-    public class PersonDto
+    public class PersonResponse
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public DateTime Date { get; set; }
