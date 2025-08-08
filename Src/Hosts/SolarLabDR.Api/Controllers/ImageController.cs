@@ -6,7 +6,7 @@ using System.Net.Mime;
 
 namespace SolarLabDR.Api.Controllers
 {
-    //TODO НУЖНО ПОДУМАТЬ НАД РУТАМИ
+
     [Route("api/Images")]
     public class ImageController : Controller
     {
@@ -28,6 +28,7 @@ namespace SolarLabDR.Api.Controllers
         public async Task<IActionResult> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
         {
             var result = await _imageService.GetByUserIdAsync(userId, cancellationToken);
+
             return StatusCode((int)HttpStatusCode.OK, result);
         }
 
@@ -64,7 +65,6 @@ namespace SolarLabDR.Api.Controllers
         {
             await _imageService.DeletedAsync(id, cancellationToken);
 
-            //Подумать какой статус код надо веррнуть
             return StatusCode((int)HttpStatusCode.NoContent);
         }
     }

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SolarLabDR.DataAccess.Repository
 {
@@ -59,6 +60,20 @@ namespace SolarLabDR.DataAccess.Repository
             var advertResult = await _repository.GetByIdAsync(person.Id, cancellationToken);
 
             return _mapper.Map<PersonDto>(advertResult);
+        }
+
+        public async Task<List<PersonDto>> GetByDateAsync(DateTime date, CancellationToken cancellationToken)
+        {
+            var persons = await _repository.GetByPredicate(p => p.Date.DayOfYear == date.DayOfYear).ToListAsync(cancellationToken);
+
+            return persons?.Select(_mapper.Map<PersonDto>).ToList() ?? new List<PersonDto>();
+        }
+
+        public async Task<List<PersonDto>> GetByMonthBDAsync(int moth, CancellationToken cancellationToken)
+        {
+            var persons = await _repository.GetByPredicate(p => p.Date.Month == moth).ToListAsync(cancellationToken);
+
+            return persons?.Select(_mapper.Map<PersonDto>).ToList() ?? new List<PersonDto>(); 
         }
     }
 }

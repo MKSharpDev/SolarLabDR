@@ -20,6 +20,8 @@ namespace SolarLabDR.Api
 
             builder.Services.AddApplicationServices();
 
+            builder.Services.AddCors();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,7 +34,7 @@ namespace SolarLabDR.Api
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.UseCors(x => x.AllowAnyOrigin());
 
             app.MapControllers();
 

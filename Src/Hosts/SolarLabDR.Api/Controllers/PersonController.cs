@@ -22,6 +22,14 @@ namespace SolarLabDR.Api.Controllers
             return StatusCode((int)HttpStatusCode.OK, result);
         }
 
+
+        [HttpGet("birthdaybyMonth/{month:int}")]
+        public async Task<IActionResult> GetByMonthBDAsync(int month, CancellationToken cancellationToken)
+        {
+            var resultList = await _personService.GetByMonthBDAsync(month, cancellationToken);
+            return StatusCode((int)HttpStatusCode.OK, resultList);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] PersonRequest model, CancellationToken cancellationToken)
         {
