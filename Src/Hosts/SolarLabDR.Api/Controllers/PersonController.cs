@@ -23,16 +23,35 @@ namespace SolarLabDR.Api.Controllers
         }
 
 
-        [HttpGet("birthdaybyMonth/{month:int}")]
-        public async Task<IActionResult> GetByMonthBDAsync(int month, CancellationToken cancellationToken)
+        [HttpGet("Birthdays/ByMonth/{month:int}")]
+       public async Task<IActionResult> GetByMonthBDAsync(int month, CancellationToken cancellationToken)
         {
             var resultList = await _personService.GetByMonthBDAsync(month, cancellationToken);
             return StatusCode((int)HttpStatusCode.OK, resultList);
         }
 
+
+        [HttpGet("Birthdays/ByDate/")]
+        public async Task<IActionResult> GetTodayBDAsync(CancellationToken cancellationToken)
+        {
+            var resultList = await _personService.GetByDateAsync(DateTime.Now, null, cancellationToken);
+            return StatusCode((int)HttpStatusCode.OK, resultList);
+        }
+
+        [HttpGet("Birthdays/ByDate/{includeDays:int}")]
+        public async Task<IActionResult> GetTidayIncludeDaysBDAsync(int includeDays, CancellationToken cancellationToken)
+        {
+            var resultList = await _personService.GetByDateAsync(DateTime.Now, includeDays, cancellationToken);
+            return StatusCode((int)HttpStatusCode.OK, resultList);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] PersonRequest model, CancellationToken cancellationToken)
         {
+            if (model.Date.Kind != DateTimeKind.Utc)
+                model.Date= model.Date.ToUniversalTime();
+
             await _personService.CreateAsync(model, cancellationToken);
             return StatusCode((int)HttpStatusCode.Created);
         }

@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-
+import { IPersonModel, PersonCard} from "../models/PersonModel";
  
-interface IPersonModel {
-  id: string;  // UUID обычно представляется как строка
-  name: string;
-  lastName: string;
-  date: string; // Дата обычно приходит как строка с сервера
-}
+
+
 
 async function fetchToDo( ) {
     const currentMonth = new Date().getMonth() + 1; // +1 потому что месяцы в JS от 0 до 11
 
   try {
-    const res = await fetch(`https://localhost:7130/api/Persons/birthdaybyMonth/${currentMonth}`);
+    const res = await fetch(`https://localhost:7130/api/Persons/birthdays/ByMonth/${currentMonth}`);
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
@@ -24,7 +20,7 @@ async function fetchToDo( ) {
 }
 
 export function CalendarPage(){
- const [data, setData] = useState<IPersonModel[]>([]);
+  const [data, setData] = useState<IPersonModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,15 +48,13 @@ export function CalendarPage(){
   }
 
   return (
-    <div className="container mx-auto max-w-[760px] pt-5">
-      <header className="App-header">
-        <div>
-          <h2>Дни рождения в августе</h2>
-          <pre style={{ textAlign: 'left' }}>
-            {JSON.stringify(data, null, 2)}
-          </pre>
-        </div>
-      </header>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Дни рождения в этом месяце</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {data.map(person => (
+          <PersonCard key={person.id} person={person} />
+        ))}
+      </div>
     </div>
   );
 }
