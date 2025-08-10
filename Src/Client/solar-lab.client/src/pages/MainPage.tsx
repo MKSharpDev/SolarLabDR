@@ -53,4 +53,4 @@ export function MainPage(){
       </div>
     </div>
   );
-}
+};
