@@ -50,10 +50,15 @@ namespace SolarLabDR.AppServices.Context.Person.Service
             return personList.Select(i => _mapper.Map<PersonResponse>(i)).ToList();
         }
 
-
         public async Task<List<PersonResponse>> GetByMonthBDAsync(int moth, CancellationToken cancellationToken)
         {
             var personList = await _personRepository.GetByMonthBDAsync(moth, cancellationToken);
+            return personList.Select(i => _mapper.Map<PersonResponse>(i)).ToList();
+        }
+
+        public async Task<List<PersonResponse>> GetByDateAsync(DateTime date, int? includeDays, CancellationToken cancellationToken)
+        {
+            var personList = await _personRepository.GetByDateAsync(date, includeDays, cancellationToken);
             return personList.Select(i => _mapper.Map<PersonResponse>(i)).ToList();
         }
     }

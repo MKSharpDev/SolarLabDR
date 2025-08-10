@@ -75,5 +75,17 @@ namespace SolarLabDR.DataAccess.Repository
 
             return persons?.Select(_mapper.Map<PersonDto>).ToList() ?? new List<PersonDto>(); 
         }
+
+        public async Task<List<PersonDto>> GetByDateAsync(DateTime date, int? includeDays, CancellationToken cancellationToken)
+        {
+            var persons = await _repository.GetByPredicate(
+                p => p.Date.Month == date.Month && 
+                (p.Date.Day == date.Day || 
+                (includeDays != null && (p.Date.Day >= date.Day && p.Date.Day <= date.Day + includeDays)))).ToListAsync(cancellationToken);
+
+            return persons?.Select(_mapper.Map<PersonDto>).ToList() ?? new List<PersonDto>();
+        }
+
+        
     }
 }

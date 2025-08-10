@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SolarLabDR.AppServices.Context.Image.Service;
 using SolarLabDR.Contracts.Image;
 using System.Net;
@@ -27,7 +28,8 @@ namespace SolarLabDR.Api.Controllers
         [HttpGet("person/{userId:guid}")]
         public async Task<IActionResult> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
         {
-            var result = await _imageService.GetByUserIdAsync(userId, cancellationToken);
+            var imagesResponseList = await _imageService.GetByUserIdAsync(userId, cancellationToken);
+            var result = imagesResponseList.Select(x => "https://localhost:7130/api/Images/" + x.Id.ToString()).ToList();
 
             return StatusCode((int)HttpStatusCode.OK, result);
         }
