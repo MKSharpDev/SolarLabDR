@@ -1,20 +1,53 @@
 import React, { useState } from 'react';
-import { IPersonModel, PersonCard} from "../models/PersonModel";
+import { IPersonModel, PersonCard } from "../models/PersonModel";
 
+interface ImageContainerProps {
+  imageList: string[];
+}
 
+const ImageContainer: React.FC<ImageContainerProps> = ({ imageList }) => {
+  if (imageList.length === 0) return null;
+  console.log(imageList);
+  return (
+    <div className="mt-6">
+      <h3 className="text-lg font-medium mb-3">Фотографии пользователя:</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {imageList.map((imageUrl, index) => (
+          <div 
+            key={index} 
+            className="relative overflow-hidden rounded-lg shadow-md aspect-square"
+          >
+            <img 
+              src={imageUrl} 
+              alt={`Фото пользователя ${index + 1}`}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300';
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export const GetPersonPage: React.FC = () => {
   const [id, setId] = useState<string>('');
   const [person, setPerson] = useState<IPersonModel | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [images, setImages] = useState<string[]>([]);
 
   const fetchPerson = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setPerson(null);
+    setImages([]);
     
     try {
+      // Запрос данных пользователя
       const response = await fetch(`https://localhost:7130/api/Persons/${id}`);
       
       if (!response.ok) {
@@ -25,9 +58,18 @@ export const GetPersonPage: React.FC = () => {
       
       const data: IPersonModel = await response.json();
       setPerson(data);
+
+      // Запрос изображений пользователя
+      const imagesResponse = await fetch(`https://localhost:7130/api/images/person/${id}`);
+      
+      if (imagesResponse.ok) {
+        const imagesData = await imagesResponse.json();
+        setImages(imagesData || []);
+        //console.log(imagesData)
+      }
+
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Неизвестная ошибка');
-      setPerson(null);
     } finally {
       setLoading(false);
     }
@@ -100,11 +142,14 @@ export const GetPersonPage: React.FC = () => {
           {person && (
             <div className="mt-8">
               <PersonCard person={person} />
+              <ImageContainer imageList={images} />
+              
             </div>
           )}
+
+
         </div>
       </div>
     </div>
   );
 };
-
