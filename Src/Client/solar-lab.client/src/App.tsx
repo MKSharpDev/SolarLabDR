@@ -4,8 +4,8 @@ import {MainPage} from './pages/MainPage'
 import {CalendarPage} from './pages/CalendarPage'
 import {PersonPage} from './pages/PersonPage'
 import {GetPersonPage} from './pages/GetPersonPage'
-
 import { Navigation } from './components/Navigation';
+import { ImagePage } from './pages/ImagePage';
 
 
 function App() {
@@ -17,8 +17,8 @@ function App() {
         <Route path='/calendar' element = { <CalendarPage />}></Route>
         <Route path='/person' element = { <PersonPage />}></Route>
         <Route path='/getperson' element = { <GetPersonPage />}></Route>
-      </Routes>
-      
+        <Route path='/image' element = { <ImagePage />}></Route>
+      </Routes>    
     </>
   );
 }
