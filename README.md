@@ -24,6 +24,8 @@ dotnet ef database update
 
 Src\Client\solar-lab.client 
 
+npm install
+
 Запускаем клиент:
 
 npm start
