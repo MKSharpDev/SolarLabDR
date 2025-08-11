@@ -55,5 +55,20 @@ namespace SolarLabDR.Api.Controllers
             await _personService.CreateAsync(model, cancellationToken);
             return StatusCode((int)HttpStatusCode.Created);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            await _personService.DeletedAsync(id, cancellationToken);
+
+            return StatusCode((int)HttpStatusCode.NoContent);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync([FromBody] PersonRequestWithId model, CancellationToken cancellationToken)
+        {
+            var updatedPersonResponse = await _personService.UpdateAsync(model, cancellationToken);
+            return StatusCode((int)HttpStatusCode.Created, updatedPersonResponse);
+        }
     }
 }

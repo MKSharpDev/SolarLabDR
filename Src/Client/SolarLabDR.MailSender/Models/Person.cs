@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SolarLabDR.Contracts.Person
+namespace SolarLabDR.MailSender.Models
 {
-    public class PersonDto
+    public class Person
     {
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public DateTime Date { get; set; }

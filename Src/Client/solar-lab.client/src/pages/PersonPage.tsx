@@ -8,7 +8,8 @@ function PersonForm(){
   const [formData, setFormData] = useState({
     name: '',
     lastName: '',
-    date: ''
+    date: '',
+    email: ''
   });
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -25,7 +26,7 @@ function PersonForm(){
 
       if (response.ok) {
         setIsSuccess(true);
-        setFormData({ name: '', lastName: '', date: '' }); // Очищаем форму
+        setFormData({ name: '', lastName: '', date: '',   email: ''}); // Очищаем форму
         
         // Через 3 секунды убираем подсветку
         setTimeout(() => setIsSuccess(false), 3000);
@@ -65,6 +66,16 @@ function PersonForm(){
             name="date"
             value={formData.date}
             onChange={(e) => setFormData({...formData, date: e.target.value})}
+            className="w-full p-2 border rounded"
+            required
+          />
+
+          <input
+            type="text"
+            name="email"
+            placeholder="Почта"
+            value={formData.email}
+            onChange={(e) => setFormData({...formData, email: e.target.value})}
             className="w-full p-2 border rounded"
             required
           />

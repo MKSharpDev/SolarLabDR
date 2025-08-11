@@ -16,5 +16,6 @@ namespace SolarLabDR.AppServices.Context.Person.Service
         Task<List<PersonResponse>> GetByDateAsync(DateTime date, int? includeDays, CancellationToken cancellationToken);
         Task<Guid> CreateAsync(PersonRequest request, CancellationToken cancellationToken);
         Task DeletedAsync(Guid id, CancellationToken cancellationToken);
+        Task<PersonResponse> UpdateAsync(PersonRequestWithId request, CancellationToken cancellationToken);
     }
 }
