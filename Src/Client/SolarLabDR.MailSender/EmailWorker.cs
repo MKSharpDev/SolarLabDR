@@ -64,16 +64,47 @@ namespace SolarLabDR.MailSender
                     EnableSsl = true
                 };
 
-                foreach (var emailTo in _toHRsMailCollection)            
+                foreach (var emailTo in _toHRsMailCollection)
+                {
                     client.Send(from, emailTo, head, body.ToString());
-                
-                Console.WriteLine($"Email was sent at {DateTime.Now}");
+                    Console.WriteLine($"Email to HR {emailTo} was sent at {DateTime.Now}");
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.ReadLine();
+            }
+        }
 
+        public async Task SendEmailToPersonDrAsync()
+        {
+            try
+            {
+                string from = _settings.EmailFrom;
+                string head = "Поздравляем с ДНЕМ РОЖДЕНИЯ"; // Тема письма
+                string smtpserver = _settings.ServerSMTP;
+
+                SmtpClient client = new SmtpClient(smtpserver)
+                {
+                    Port = _settings.Port,
+                    Credentials = new NetworkCredential(_settings.CredentialUserName, _settings.CredentialPassword),
+                    EnableSsl = true
+                };
+
+                foreach (var emailTo in _personsToСongratulate)
+                {
+                    if (emailTo.Email == null)
+                        continue;
+
+                    var body = $"Уважаемый {emailTo.Name} {emailTo.LastName} в этот чуд.. бла бла бла ... поздравляем с ДР!";
+
+                    client.Send(from, emailTo.Email, head, body);
+                    Console.WriteLine($"Email to HR {emailTo.Email} was sent at {DateTime.Now}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

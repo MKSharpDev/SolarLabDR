@@ -8,15 +8,14 @@ namespace SolarLabDR.MailSender
     {
         static async Task Main(string[] args)
         {
-            var personsToСongratulate = new List<Person>() { new Person() { LastName = "name", Date = DateTime.Now, Name = "Name" } };
-            var emailWorker = new EmailWorker(personsToСongratulate);
+            //var personsToСongratulate = new List<Person>() { new Person() { LastName = "name", Date = DateTime.Now, Name = "Name" } };
+            //var emailWorker = new EmailWorker(personsToСongratulate);
 
-            //var builder = Host.CreateApplicationBuilder(args);
-            //builder.Services.AddHostedService<MainWorker>();
+            var builder = Host.CreateApplicationBuilder(args);
+            builder.Services.AddHostedService<MainWorker>();
 
-            //var host = builder.Build();
-            //host.Run();
-
+            var host = builder.Build();
+            host.Run();
         }
     }
 }

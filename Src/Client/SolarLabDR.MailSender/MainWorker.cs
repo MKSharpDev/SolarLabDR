@@ -21,24 +21,23 @@ namespace SolarLabDR.MailSender
             if (!personsToСongratulate.Any())
                 return;
 
-            //string[] toHRs = { "kuzz.ma@yandex.ru" };
             var emailWorker = new EmailWorker(personsToСongratulate);
 
             await emailWorker.SendEmailToHRAsync();
+            await emailWorker.SendEmailToPersonDrAsync();
+
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             JobManager.Initialize();
             JobManager.AddJob( async () => await MainTaskAsync(),
-                 s => s.ToRunEvery(1).Days().At(12, 37)
-                );
-          
+                 s => s.ToRunEvery(1).Days().At(12, 37));
 
             while (!stoppingToken.IsCancellationRequested)
             {
                 Console.WriteLine("Working... Time now: " + DateTime.Now.ToString());
-                await Task.Delay(10000, stoppingToken);
+                await Task.Delay(600000, stoppingToken);
             }
 
             if (stoppingToken.IsCancellationRequested)
