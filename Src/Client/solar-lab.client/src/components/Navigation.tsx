@@ -8,6 +8,7 @@ export function Navigation(){
             <Link to="/calendar">Calendar</Link>
             <Link to="/person">AddPerson</Link>
             <Link to="/getperson">GetPerson</Link>
+            <Link to="/image">AddImage</Link>
         </nav>
     )
 }

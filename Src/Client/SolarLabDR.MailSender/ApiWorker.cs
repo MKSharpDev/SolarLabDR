@@ -11,10 +11,12 @@ namespace SolarLabDR.MailSender
     public class APIWorker
     {
         private readonly string _apiAdress;
+
         public APIWorker(string apiAdress)
         {
             _apiAdress = apiAdress;
         }
+
         public async Task<ICollection<Person>> GetPersonsAsync()
         {
             try

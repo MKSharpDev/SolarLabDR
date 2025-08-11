@@ -34,7 +34,7 @@ namespace SolarLabDR.Api.Controllers
             return StatusCode((int)HttpStatusCode.OK, result);
         }
 
-        [HttpPost("uplodByteArray")]
+        [HttpPost("uploadByteArray")]
         public async Task<IActionResult> PostByteArrayAsync([FromBody] ImageRequest model, CancellationToken cancellationToken)
         {
             await _imageService.CreateAsync(model, cancellationToken);
@@ -42,7 +42,7 @@ namespace SolarLabDR.Api.Controllers
         }
 
 
-        [HttpPost("uplodImage")]
+        [HttpPost("uploadImage")]
         public async Task<IActionResult> PostImageAsync(Guid userId, IFormFile file, CancellationToken cancellationToken)
         {
             //TODO валидация

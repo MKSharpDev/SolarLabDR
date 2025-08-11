@@ -16,7 +16,6 @@ namespace SolarLabDR.MailSender
         public ICollection<string> _toHRsMailCollection;
         public MailServiceSettings _settings;
 
-
         public EmailWorker(ICollection<Person> personsToСongratulate)
         {
             _personsToСongratulate = personsToСongratulate;
@@ -24,7 +23,7 @@ namespace SolarLabDR.MailSender
             var config = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(
                                  Directory.GetCurrentDirectory(),
-                                "..", "..", ".." // Поднимаемся на 3 уровня вверх из bin/Debug/netX.Y
+                                "..", "..", ".." // Поднимаемся на 3 уровня вверх из bin/Debug/net8.0
                                 ))
                 .AddJsonFile("appsettings.json")
                 .Build();
@@ -54,7 +53,7 @@ namespace SolarLabDR.MailSender
                     body.AppendLine(person.Name + " " + person.LastName);
 
                 string from = _settings.EmailFrom;
-                string head = "Hello Test!"; // Тема письма
+                string head = "Hello Test!"; 
                 string smtpserver = _settings.ServerSMTP;
 
                 SmtpClient client = new SmtpClient(smtpserver)
