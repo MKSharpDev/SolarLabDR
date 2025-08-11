@@ -25,7 +25,6 @@ namespace SolarLabDR.MailSender
 
             await emailWorker.SendEmailToHRAsync();
             await emailWorker.SendEmailToPersonDrAsync();
-
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

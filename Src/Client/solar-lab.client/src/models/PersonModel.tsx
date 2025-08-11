@@ -5,6 +5,7 @@ export interface IPersonModel {
   name: string;
   lastName: string;
   date: string;
+  email: string;
 }
 
 export const PersonCard: React.FC<{ person: IPersonModel }> = ({ person }) => {
@@ -23,6 +24,9 @@ export const PersonCard: React.FC<{ person: IPersonModel }> = ({ person }) => {
         </p>
         <p className="text-gray-700">
           <span className="font-medium">Возраст:</span> {age} лет
+        </p>
+        <p className="text-gray-700">
+          <span className="font-medium">Почта:</span> {person.email} 
         </p>
       </div>
       <div className="bg-gray-100 px-4 py-2 text-sm text-gray-600">

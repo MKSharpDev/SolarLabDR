@@ -12,6 +12,7 @@ namespace SolarLabDR.MapProfile
             CreateMap<Person, PersonDto>(MemberList.None).ReverseMap();
             CreateMap<PersonRequest, PersonDto>(MemberList.None);
             CreateMap<PersonDto, PersonResponse>(MemberList.None);
+            CreateMap<PersonRequestWithId, PersonDto>(MemberList.None);            
         }
     }
 }

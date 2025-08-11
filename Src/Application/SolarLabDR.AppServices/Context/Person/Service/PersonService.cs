@@ -61,5 +61,14 @@ namespace SolarLabDR.AppServices.Context.Person.Service
             var personList = await _personRepository.GetByDateAsync(date, includeDays, cancellationToken);
             return personList.Select(i => _mapper.Map<PersonResponse>(i)).ToList();
         }
+
+        public async Task<PersonResponse> UpdateAsync(PersonRequestWithId request, CancellationToken cancellationToken)
+        {
+            var personDto = _mapper.Map<PersonDto>(request);
+            var personUpdatedDto = await _personRepository.UpdateAsync(personDto, cancellationToken);
+
+            return _mapper.Map<PersonResponse>(personUpdatedDto);
+        }
     }
+
 }
