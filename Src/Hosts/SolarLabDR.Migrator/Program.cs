@@ -17,8 +17,6 @@ namespace SolarLabDR.Migrator
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetService<MigrationDbContext>();
-            context.Database.EnsureCreated();
-
             await context!.Database.MigrateAsync();
         }
     }

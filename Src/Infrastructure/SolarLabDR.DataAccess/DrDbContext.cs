@@ -8,7 +8,6 @@ namespace SolarLabDR.DataAccess
     {
         public DrDbContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
